@@ -47,7 +47,7 @@ async function meteorologicalData() {
     const queryInsert = `
         INSERT INTO clima (cep_id, temperatura, descricao)
         VALUES ($1, $2, $3)
-    ON conflict do nothing
+    ON conflict (cep_id) do update set temperatura = $2, descricao = $3, data_hora = now()
         `;
 
     const returnWeather = async (latitude, longitude) => {
@@ -56,20 +56,17 @@ async function meteorologicalData() {
           `lat=${latitude}&lon=${longitude}` +
           process.env.weatherKey
       );
-      return data
+      return data;
     };
 
     selectReturn.rows.forEach((object) => {
       returnWeather(object.latitude, object.longitude).then((data) => {
-          const params = [
-            object.id,
-            data.main.temp,
-            data.weather[0].description,
-      ];
-      pool.query(queryInsert, params);
+        const params = [object.id, data.main.temp, data.weather[0].description];
+
+        pool.query(queryInsert, params);
       });
     });
-  
+
     console.log("As informações de clima foram adicionados no banco de dados");
   } catch (error) {
     if (error) {
