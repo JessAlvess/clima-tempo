@@ -17,7 +17,7 @@ O desafio consiste em dois principais scripts:
 
 1. **Entrada**: Uma lista de CEPs em um arquivo de texto.
 2. **Processamento**:
-    - Utilizar a [Brasil API](https://brasilapi.com.br/) para obter informações sobre o CEP, incluindo cidade, bairro, estado, latitude e longitude.
+    - Utilizei a [Zip Code Base API](https://app.zipcodebase.com/) para obter informações sobre o CEP, incluindo cidade, bairro, estado, latitude e longitude.
     - Usar a [API de Clima e Tempo](https://api.openweathermap.org) para obter os dados meteorológicos com base na latitude e longitude.
     - Utilizar uma API de notícias, como a [News API](https://newsapi.org), para obter notícias baseadas na cidade e estado.
 3. **Armazenamento**: Os dados devem ser processados e armazenados em um banco de dados PostgreSQL.
